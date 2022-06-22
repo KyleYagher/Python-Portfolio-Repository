@@ -17,7 +17,8 @@ x = 0
 
 def minNum(minList):
     '''
-    -   Function that takes in a list of integers, calculates and returns the lowest number in the list.
+    -   Function that takes in a list of integers, calculates 
+        and returns the lowest number in the list.
     '''
     # Assign minlist value to 'numHold' variable and empty 
     # the minList variable.
@@ -34,7 +35,8 @@ def minNum(minList):
 
 def maxNum(maxList):
     '''
-    -   Function that takes in a list of integers, calculates and returns the highest number in the list.
+    -   Function that takes in a list of integers, calculates 
+        and returns the highest number in the list.
     '''
     # Assign maxlist value to 'numHold' variable and empty 
     # the maxList variable.
@@ -51,7 +53,8 @@ def maxNum(maxList):
 
 def avg(avgList):
     '''
-    -   Function that takes in a list of integers, calculates and returns the average number in the list.
+    -   Function that takes in a list of integers, calculates 
+        and returns the average number in the list.
     '''
     # Assign avgList value to 'numHold' variable and empty 
     # the avgList variable.
@@ -68,7 +71,8 @@ def avg(avgList):
 
 def percentile(pList, pSplit):
     '''
-    -   Function that takes in a list of integers, calculates and returns the [n]th percentile number in the list.
+    -   Function that takes in a list of integers, calculates
+        and returns the [n]th percentile number in the list.
     '''
     # Assign pList value to 'numHold' variable and empty the 
     # pList variable. Initialize counter variable 'index'.
@@ -87,7 +91,8 @@ def percentile(pList, pSplit):
 
 def sumOf(sumList):
     '''
-    -   Function that takes in a list of integers, calculates and returns the sum of the list.
+    -   Function that takes in a list of integers, calculates 
+        and returns the sum of the list.
     '''
     sumList = [sum(sumList[0])]
     return(sumList)
@@ -99,7 +104,8 @@ with open('input.txt', 'r+', encoding = 'utf-8-sig') as f:
     # variable 'content'
     content = [re.split(':', x) for x in f.readlines()]
 
-# For loop that splits data into key/strings and values/integers
+# For loop that splits data into key/strings and values/
+# integers
 for lists in content:
     keys += (lists[0].split(','))
     numList += (lists[1].strip()).split(':')
