@@ -114,33 +114,34 @@ values = dict(list(enumerate(values, start = 1)))
 # Reset x counter to null
 x = 0  
 
-# For loop that that extracts the key and value items from 
+# For loop that that extracts the key and value items from
 # the 'key' dictionary. If the condition matches, uses the 
 # key to access 'values'dictionary item and assigns it to 
 # unique list variables. Once respective functions run, 
-# calls the functions and displays the values as required.
-  
-for key, value in keys.items():
-    
-    if 'min' in value:
-        minList += [values[key]]
-        print(f'\nThe {value} of {minList[x]} is:' , minNum(minList)[x])
-      
-    elif 'max' in value:
-        maxList += [values[key]]
-        print(f'\nThe max of {maxList[x]} is:', maxNum(maxList)[x])
-        
-    elif 'avg' in value:
-        avgList += [values[key]]
-        print(f'\nThe avg of {avgList[x]} is:', avg(avgList)[x])
+# calls the functions and writes the values to output file 
+# as required.
+with open('output.txt', 'w') as f:  
+    for key, value in keys.items():
 
-    elif 'p' in value:
-        pSplit.append(int((value.split('p'))[1]))
-        pList += [values[key]]
-        percentList = percentile(pList, pSplit)
-        print(f'\nThe {pSplit[x]}th percentile of {pList[x]} is:',percentList[x], '\n')
-        
-    elif 'sum' in value:
-        sumList += [values[key]]
-        print(f'The sum of {sumList[x]} is:', sumOf(sumList)[x])
-        x += 1
+        if 'min' in value:
+            minList += [values[key]]
+            f.write(f'The {value} of {minList[x]} is: {minNum(minList)[x]}')
+
+        elif 'max' in value:
+            maxList += [values[key]]
+            f.write(f'\nThe max of {maxList[x]} is: {maxNum(maxList)[x]}')
+
+        elif 'avg' in value:
+            avgList += [values[key]]
+            f.write(f'\nThe avg of {avgList[x]} is: {avg(avgList)[x]}')
+
+        elif 'p' in value:
+            pSplit.append(int((value.split('p'))[1]))
+            pList += [values[key]]
+            percentList = percentile(pList, pSplit)
+            f.write(f'\nThe {pSplit[x]}th percentile of {pList[x]} is: {percentList[x]}')
+
+        elif 'sum' in value:
+            sumList += [values[key]]
+            f.write(f'The sum of {sumList[x]} is: {sumOf(sumList)[x]}')
+            x += 1
