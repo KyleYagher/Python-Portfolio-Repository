@@ -3,6 +3,132 @@
 from datetime import date
 from re import S
 
+#====Functions========
+def reg_user():
+    pass
+    '''
+    -   Function that registers a new user and password. 
+    -   Requests new username and checks for duplicate match.
+    -   Requests new user password and password confirmation and checks match
+    -   writes new username and password to user.txt file.
+    '''
+    pass
+
+    # Read in the data from input file. Splits the data by ',' and 
+    # casts to a string before storing in 'content' variable.
+    with open('user.txt', 'r+') as f:
+        content = str([lines.split(',') for lines in f.readlines()])
+
+        # While loop that controls the username input loop
+        while True:
+            newUser = input('username: ')
+
+            # Condition that checks if duplicate username exists
+            if newUser not in content:
+                
+                # Nested while loop that controls the password and password
+                # confirmation input loops
+                while True:
+                    newPassword = input('newpass: ')
+                    passConfirm = input('passconfirm: ')
+
+                    # Nested if condition that checks if passwords and password
+                    # confirmation match. Inputs stored as a formatted string variable
+                    if newPassword == passConfirm:
+                        creds = '\n' + newUser + ', ' + newPassword
+                        break
+                   
+                    # if passwords do not match, prints an error message. 
+                    else:
+                        print('Passwords do not match!')
+                
+                # Break for the outer loop
+                break
+
+            # If duplicate username exists prints error message.  
+            else: 
+                print(f"{newUser} already exists. Please try again!! ")
+        
+        # Writes credentials to file        
+        f.write(creds)
+
+def add_task():
+    pass
+    # Declare boolean variable 'taskComplete' as No
+    # Declare empty string variable 'lines'
+    taskComplete = 'No'
+    lines = ''
+    # Request user to input username to assign to task and store as variable
+    print("\nPlease input username to assign to task!!\n")
+    taskUser = input("Username: ")
+    # Request User to input task title ad store as variable
+    print("\nPlease input the title of the task!!\n")
+    taskTitle = input("Title: ")
+    # Request User to input task description and store as variable
+    print("\nPlease input a brief description of the task!!\n")
+    TaskDescription = input("Description: ")
+    # Request user to input task due date and store as variable
+    print("\nPlease Assign a due date to the task!!\n")
+    taskDD = input("Due date: ")
+    # Get todays date and store as variable 'today'
+    today = date.today()
+    # Inittialize 'taskList' list variable
+    # Assign task varibles as list values
+    taskList = [f"{lines} \n" + f"{taskUser}, {taskTitle}, {TaskDescription}, {taskDD}, {today}, {taskComplete}"]
+    with open('tasks.txt','r+') as f:
+        # Open file and store content in string variable
+        for line in f:
+            lines += line
+        # Iterate over list variable and write output to file
+        for task in taskList:
+            f.write(task)
+
+def view_all():
+    pass
+    # Declare list variable 'lines' and count variable 'num'
+    lines = []
+    num = 0
+    with open('tasks.txt', 'r+') as f:
+        # Open file and store content in list variable
+        for line in f:
+            lines.append(line.replace('\n', '').split(', '))
+            # Display application lines
+            print('___' * 25)
+            while num < len(lines):
+                # loop over list variable and Display Task data in required format
+                print(f'''\nTask: \t\t\t {lines[num][1]}
+                        \nAssigned To: \t\t {lines[num][0]}
+                        \nDate Assigned: \t\t {lines[num][4]}
+                        \nDue Date: \t\t {lines[num][3]}
+                        \nTask Complete? \t\t {lines[num][5]}
+                        \nTask Description:\t\t\n {lines[num][2]} \n''')
+                num += 1
+            # Display application lines
+            print('___' * 25)
+
+def view_mine():
+    pass
+    # Declare empty list variable 'lines'
+    lines = []
+    with open('tasks.txt', 'r') as f:
+        # Open files and store in list variable
+        for line in f:
+            lines.append(line.replace('\n', '').split(', '))
+        # Display application lines
+        print('___' * 25)
+        for taskList in lines:
+            # Iterate over list and display tasks assigned to current user
+            if currentUser in taskList:
+                print(f'''\nTask: \t\t\t {taskList[1]}
+                        \nAssigned To: \t\t {taskList[0]}
+                        \nDate Assigned: \t\t {taskList[4]}
+                        \nDue Date: \t\t {taskList[3]}
+                        \nTask Complete? \t\t {taskList[5]}
+                        \nTask Description:\t\t\n {taskList[2]} \n''')
+        # Display application lines  
+        print('___' * 25)
+
+
 #====Login Section====
 '''Here you will write code that will allow a user to login.
     - Your code must read usernames and password from the user.txt file
@@ -78,37 +204,11 @@ e   - Exit
             - Check if the new password and confirmed password are the same.
             - If they are the same, add them to the user.txt file,
             - Otherwise you present a relevant message.'''
-        
-        # Declare 'lines' string variable
-        lines = ''
-
-        # User to input new username and store as variable 'newUser'
-        newUser = input("Please input new username: ")
-
-        #User to input new password and store as variable 'newPassword'
-        newPassword = input(f"Please input a password for {newUser}: ")
-
-        #User to confirm password input
-        passconfirm = input(f"Please confirm password for {newUser}: ")
-
-        if newPassword == passconfirm:
-            #If passwords match add inputs to list variable
-            credentials = [f'{lines}\n' + f'{newUser}, {newPassword}']
-
-            with open('user.txt', 'r+') as f:
-                for line in f:
-                    lines += line
-                #Iterate over list variable and write output to file
-                for creds in credentials:
-                    f.write(creds)
-
-        else:
-            #If passwords do not match print error message
-            print("Passwords do not match, Please Try again!!")
+        reg_user()
 
     elif menu == 'r' and currentUser != 'admin':
         #Throw error if Current user not an Admin
-        print("You're barking up the wrong tree \nPlease ensure you are assogned to the appropriate UserGroup!!")
+        print("You're barking up the wrong tree \nPlease ensure you are assigned to the appropriate UserGroup!!")
 
     elif menu == 'a':
         pass
@@ -122,43 +222,8 @@ e   - Exit
             - Then get the current date.
             - Add the data to the file task.txt and
             - You must remember to include the 'No' to indicate if the task is complete.'''
-
-        # Declare boolean variable 'taskComplete' as No
-        # Declare empty string variable 'lines'
-        taskComplete = 'No'
-        lines = ''
-
-        # Request user to input username to assign to task and store as variable
-        print("\nPlease input username to assign to task!!\n")
-        taskUser = input("Username: ")
-
-        # Request User to input task title ad store as variable
-        print("\nPlease input the title of the task!!\n")
-        taskTitle = input("Title: ")
-
-        # Request User to input task description and store as variable
-        print("\nPlease input a brief description of the task!!\n")
-        TaskDescription = input("Description: ")
-
-        # Request user to input task due date and store as variable
-        print("\nPlease Assign a due date to the task!!\n")
-        taskDD = input("Due date: ")
-
-        # Get todays date and store as variable 'today'
-        today = date.today()
-
-        # Inittialize 'taskList' list variable
-        # Assign task varibles as list values
-        taskList = [f"{lines} \n" + f"{taskUser}, {taskTitle}, {TaskDescription}, {taskDD}, {today}, {taskComplete}"]
-
-        with open('tasks.txt','r+') as f:
-            # Open file and store content in string variable
-            for line in f:
-                lines += line
-            # Iterate over list variable and write output to file
-            for task in taskList:
-                f.write(task)
-
+        add_task()
+        
     elif menu == 'va':
         pass
         '''In this block you will put code so that the program will read the task from task.txt file and
@@ -168,31 +233,7 @@ e   - Exit
             - Split that line where there is comma and space.
             - Then print the results in the format shown in the Output 2 in L1T19 pdf
             - It is much easier to read a file using a for loop.'''
-
-        # Declare list variable 'lines' and count variable 'num'
-        lines = []
-        num = 0
-
-        with open('tasks.txt', 'r+') as f:
-            # Open file and store content in list variable
-            for line in f:
-                lines.append(line.replace('\n', '').split(', '))
-
-                # Display application lines
-                print('___' * 25)
-
-                while num < len(lines):
-                    # loop over list variable and Display Task data in required format
-                    print(f'''\nTask: \t\t\t {lines[num][1]}
-                            \nAssigned To: \t\t {lines[num][0]}
-                            \nDate Assigned: \t\t {lines[num][4]}
-                            \nDue Date: \t\t {lines[num][3]}
-                            \nTask Complete? \t\t {lines[num][5]}
-                            \nTask Description:\t\t\n {lines[num][2]} \n''')
-                    num += 1
-
-                # Display application lines
-                print('___' * 25)
+        view_all()
     
     elif menu == 'vm':
         pass
@@ -204,37 +245,16 @@ e   - Exit
             - Check if the username of the person logged in is the same as the username you have
             read from the file.
             - If they are the same you print the task in the format of output 2 shown in L1T19 pdf '''
+        view_mine()
 
-        # Declare empty list variable 'lines'
-        lines = []
-
-        with open('tasks.txt', 'r') as f:
-            # Open files and store in list variable
-            for line in f:
-                lines.append(line.replace('\n', '').split(', '))
-
-            # Display application lines
-            print('___' * 25)
-
-            for taskList in lines:
-
-                # Iterate over list and display tasks assigned to current user
-                if currentUser in taskList:
-                    print(f'''\nTask: \t\t\t {taskList[1]}
-                            \nAssigned To: \t\t {taskList[0]}
-                            \nDate Assigned: \t\t {taskList[4]}
-                            \nDue Date: \t\t {taskList[3]}
-                            \nTask Complete? \t\t {taskList[5]}
-                            \nTask Description:\t\t\n {taskList[2]} \n''')
-
-            # Display application lines  
-            print('___' * 25)
         
     elif menu == 's':
         pass
-        '''In this block I display a menu option only visible to 'admin' users.
-            - Number of tasks in the system
-            - Number of users registered on tyhe sustem'''
+        '''
+        -   In this block I display a menu option only visible to 'admin' users.
+            *   Number of tasks in the system
+            *   Number of users registered on the system
+        '''
 
         # Create count variables
         taskCount = 0
