@@ -1,0 +1,3 @@
+
+
+view_mine(currentUser)

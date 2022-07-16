@@ -1,1 +1,5 @@
 admin, adm1n
+kylo, kyl0
+socks, s0cks
+momo, m0m0
+loky, l0ky
