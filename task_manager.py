@@ -266,6 +266,7 @@ def view_mine(currentUser):
 
             else:
                 otherTasks = (tasks.strip()).split(',')
+
                 userTasks += [tasks] 
 
         print('_____' * 14, '\n')
@@ -372,7 +373,7 @@ def view_mine(currentUser):
 
     # Write data to file.
     with open('tasks.txt', 'w') as f:       
-        f.write(data.rstrip('\n'))
+        f.write(data)
         
 
 #____Login Section____|

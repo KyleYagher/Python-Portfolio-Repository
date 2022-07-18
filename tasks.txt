@@ -1,2 +1,3 @@
-a, d, m, i, n, ,
-kylo,   Register Users with taskManager.py,   Use taskManager.py to add the usernames and passwords for all team members that will be using this program.,   10 Oct 2019,  Due Date,  Yes
+admin, Register Users with taskManager.py, Use taskManager.py to add the usernames and passwords for all team members that will be using this program., 10 Oct 2019, 20 Oct 2019, No
+admin, Assign initial tasks, Use taskManager.py to assign each team member with appropriate tasks, 10 Oct 2019, 25 Oct 2019, No  
+kylo, Wash the Dishes, Please wash the dishes every day!, 22/07/2022, 2022-06-23, No
